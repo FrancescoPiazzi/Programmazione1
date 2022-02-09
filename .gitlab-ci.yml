@@ -1,0 +1,16 @@
+stages:
+  - build
+
+build-job:
+  stage: build
+  script:
+    - for dir in "."/*; do 
+        if test -f "makefile"; then
+          make
+        else
+          file="$dir/${dir:5}.cpp";
+          if test -f "$file"; then
+            g++ $file;
+          fi;
+        fi;
+      done

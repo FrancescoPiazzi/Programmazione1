@@ -1,0 +1,14 @@
+/usr/bin/ld: file.cpp:(.text+0x92): undefined reference to `funzione'
+ti sei dimenticato di linkare la libreria con le funzioni (g++ main.cpp -g libreria.h)
+
+/usr/bin/ld: /usr/lib/gcc/x86_64-pc-linux-gnu/11.1.0/../../../../lib/Scrt1.o: in function `_start':
+(.text+0x24): undefined reference to `main'
+stai compilando un file senza main (probabilmente una libreria)
+
+Quando hai fatto copia incolla di quel pezzo di codice simile hai cambiato TUTTE le cose da cambiare?
+
+Sicuro di star compilando la stessa cosa che stai scrivendo?
+Sicuro di star esegueendo la stessa cosa che stai compilando?
+
+alcune mie funzioni hanno nomi molto simili a funzioni di libreria
+es. strcmp vs strCmp, toupper vs toUpper...
