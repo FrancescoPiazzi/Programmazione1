@@ -24,11 +24,17 @@ int main (int argc, char * argv[]) {
     }
     
     albero radice = creaAlberoDiRicercaBinaria(argv[1]);
+
+
     
     if (radice == NULL)
         cout << "Errore nella creazione dell'albero" << endl;
-    else
+    else{
         stampaAlbero(radice);
+        cout << endl << "-------" << endl;
+        invert(radice);
+        stampaAlbero(radice);
+    }
 
     return 0;
 }
@@ -41,8 +47,7 @@ albero creaAlberoDiRicercaBinaria(char * file) {
     if (input.fail()) {
         cout << "Errore in lettura" << endl;
     }
-    else
-    {
+    else {
         int numero;
         input >> numero;
         radice = new nodo{numero, NULL , NULL};    
@@ -58,30 +63,27 @@ albero creaAlberoDiRicercaBinaria(char * file) {
 
 
 void inserisciNodo(albero radice, nodo* nuovoNodo) {
-    if (nuovoNodo->value > radice->value) {
-        if (radice->right == NULL) {
+    if (nuovoNodo->value > radice->value)
+        if (radice->right == NULL)
             radice->right = nuovoNodo;
-        } else {
+        else
             inserisciNodo(radice->right, nuovoNodo);
-        }
-    } else {
-        if (radice->left == NULL) {
+    else
+        if (radice->left == NULL)
             radice->left = nuovoNodo;
-        } else {
+        else 
             inserisciNodo(radice->left, nuovoNodo);
-        }
-    }
 }
 
-void invert(albero radice){
+void invert(albero node){
     albero tmp;
-    tmp = radice->left;
-    radice->left = radice->right;
-    radice->right = tmp;
-    if(radice->left!=NULL)
-        invert(radice->left);
-    if(radice->right!=NULL)
-        invert(radice->right);
+    tmp = node->left;
+    node->left = node->right;
+    node->right = tmp;
+    if(node->left!=NULL)
+        invert(node->left);
+    if(node->right!=NULL)
+        invert(node->right);
 }
 
 void stampaAlbero(albero radice, int spazio) {
