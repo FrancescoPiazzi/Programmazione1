@@ -2,4 +2,4 @@
 - Deallocare la memoria
 - Le due cose sopra prima di tutti gli exit()
 - Controllare che la consegna sia rispettata alla lettera
-- I file li vuole con l'estensione .cc e non .cpp probabilmente :(
+- I nomi dei file da caricare
