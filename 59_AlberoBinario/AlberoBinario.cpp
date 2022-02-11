@@ -80,6 +80,7 @@ void invert(albero node){
     tmp = node->left;
     node->left = node->right;
     node->right = tmp;
+
     if(node->left!=NULL)
         invert(node->left);
     if(node->right!=NULL)
