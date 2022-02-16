@@ -5,6 +5,9 @@ ti sei dimenticato di linkare la libreria con le funzioni (g++ main.cpp -g libre
 (.text+0x24): undefined reference to `main'
 stai compilando un file senza main (probabilmente una libreria)
 
+Void value ingored as it ought to be
+sicuro che i tipi di dato siano giusti? Anche nei costruttori?
+
 Quando hai fatto copia incolla di quel pezzo di codice simile hai cambiato TUTTE le cose da cambiare?
 
 Sicuro di star compilando la stessa cosa che stai scrivendo?
