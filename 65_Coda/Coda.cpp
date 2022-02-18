@@ -15,25 +15,30 @@ struct coda{
 void put(coda*&, int);
 coda* initCoda(int);
 void print(coda*);
-node* get(coda*&);
+int get(coda*&);
 void dealloc(coda*&);
 
 int main(int argc, char *argv[]){
     coda* c = initCoda(14);
-    put(c, 41);
-    put(c, 61);
-    put(c, 72);
-    put(c, 12);
+    int i=0, size=1;
+    srand(time(NULL));
+
+    while(i<73){
+        if(size==0 || rand()%4!=0){
+            int n = rand()%100;
+            cout << "Aggiungo " << n << endl;
+            put(c, n);
+            size++;
+        }
+        else{
+            cout << "Estratto " << get(c) << endl;
+            size--;
+        }
+        i++;
+    }
 
     print(c);
     dealloc(c);
-
-    if(c == NULL)
-        cout << "yeeee";
-    else
-        cout << "impossibile, è ancora viva: " << c;
-    cout << endl;
-
 	return 0;
 }
 
@@ -62,19 +67,19 @@ void print(coda* c){
     cout << endl;
 }
 
-node* get(coda*& c){
+int get(coda*& c){
     node* nodeToReturn = c->head;
     c->head = c->head->next;
-    return nodeToReturn;
+    int valueToReturn = nodeToReturn->value;
+    delete nodeToReturn;
+    return valueToReturn;
 }
 
 void dealloc(coda*& c){
     while(c->head != NULL){
         node* tmp = c->head;
         c->head = c->head->next;
-        cout << "elimino " << tmp << endl;
         delete tmp;
     }
-    cout << "elimino la coda: " << c << endl;
     delete c;
 }

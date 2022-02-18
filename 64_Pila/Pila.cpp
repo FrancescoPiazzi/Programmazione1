@@ -10,19 +10,30 @@ struct node{
 void put(node*&, int);
 node* initPila(int);
 void print(node*);
-node* get(node*&);
+int get(node*&);
 void dealloc(node*&);
 
 int main(int argc, char *argv[]){
     node* pila = initPila(14);
-    put(pila, 41);
-    put(pila, 61);
-    put(pila, 72);
-    put(pila, 12);
+    int i=0, size=1;
+    srand(time(NULL));
+
+    while(i<73){
+        if(size==0 || rand()%4!=0){
+            int n = rand()%100;
+            cout << "Aggiungo " << n << endl;
+            put(pila, n);
+            size++;
+        }
+        else{
+            cout << "Estratto " << get(pila) << endl;
+            size--;
+        }
+        i++;
+    }
 
     print(pila);
     dealloc(pila);
-
 	return 0;
 }
 
@@ -45,10 +56,12 @@ void print(node* pila){
     cout << endl;
 }
 
-node* get(node*& pila){
+int get(node*& pila){
     node* nodeToReturn = pila;
     pila = pila->next;
-    return nodeToReturn;
+    int valueToReturn = nodeToReturn->value;
+    delete nodeToReturn;
+    return valueToReturn;
 }
 
 void dealloc(node*& pila){
