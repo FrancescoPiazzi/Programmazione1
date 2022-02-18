@@ -10,12 +10,11 @@ struct nodo {
 };
 typedef nodo* albero;
 
-
-albero creaAlberoDiRicercaBinaria(char * file);
-void inserisciNodo(albero radice, nodo* nuovoNodo);
-void stampaAlbero(albero radice, int spazio=0);
+albero creaAlbero(char * file);
+void put(albero radice, nodo* nuovoNodo);
+void print(albero radice, int spazio=0);
 void invert(albero radice);
-
+void deinit(albero radice);
 
 int main (int argc, char * argv[]) {
     if (argc != 2) {
@@ -23,23 +22,22 @@ int main (int argc, char * argv[]) {
         exit(1);
     }
     
-    albero radice = creaAlberoDiRicercaBinaria(argv[1]);
-
-
+    albero radice = creaAlbero(argv[1]);
     
     if (radice == NULL)
         cout << "Errore nella creazione dell'albero" << endl;
     else{
-        stampaAlbero(radice);
+        print(radice);
         cout << endl << "-------" << endl;
         invert(radice);
-        stampaAlbero(radice);
+        print(radice);
     }
 
+    deinit(radice);
     return 0;
 }
 
-albero creaAlberoDiRicercaBinaria(char * file) {
+albero creaAlbero(char * file) {
     albero radice = NULL;
     fstream input;
     
@@ -54,7 +52,7 @@ albero creaAlberoDiRicercaBinaria(char * file) {
         
         while(input >> numero) {
             nodo* nuovoNodo = new nodo{numero, NULL, NULL};
-            inserisciNodo(radice, nuovoNodo);
+            put(radice, nuovoNodo);
         }
         input.close();
     }
@@ -62,17 +60,17 @@ albero creaAlberoDiRicercaBinaria(char * file) {
 }
 
 
-void inserisciNodo(albero radice, nodo* nuovoNodo) {
+void put(albero radice, nodo* nuovoNodo) {
     if (nuovoNodo->value > radice->value)
         if (radice->right == NULL)
             radice->right = nuovoNodo;
         else
-            inserisciNodo(radice->right, nuovoNodo);
+            put(radice->right, nuovoNodo);
     else
         if (radice->left == NULL)
             radice->left = nuovoNodo;
         else 
-            inserisciNodo(radice->left, nuovoNodo);
+            put(radice->left, nuovoNodo);
 }
 
 void invert(albero node){
@@ -87,17 +85,25 @@ void invert(albero node){
         invert(node->right);
 }
 
-void stampaAlbero(albero radice, int spazio) {
+void print(albero radice, int spazio) {
    if (radice != NULL) {
     spazio ++;
     
-    stampaAlbero(radice->right, spazio);
+    print(radice->right, spazio);
  
     for (int i = 1; i < spazio; i++) {
         cout<<"\t";
     }
     cout<<radice->value<<"\n";
     
-    stampaAlbero(radice->left, spazio);
+    print(radice->left, spazio);
    }
+}
+
+void deinit(albero radice){
+    if(radice->left != NULL)
+        deinit(radice->left);
+    if(radice->right != NULL)
+        deinit(radice->right);
+    delete radice;
 }
