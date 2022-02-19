@@ -15,6 +15,8 @@ void addRecursive(node*, int);
 node* getNodeAt(node*, int);
 node* getRecursive(node*, int);
 void removeNode(node*&, int);
+void deinit(node*);
+void deinitRecursive(node*);
 
 int main(){
     node* n = initLista(15);
@@ -34,7 +36,8 @@ int main(){
     printLista(n);
     printRecursive(nr);
 
-    delete n, nr;
+    deinit(n);
+    deinitRecursive(nr);
 	return 0;
 }
 
@@ -89,11 +92,32 @@ node* getRecursive(node* list, int position){
 }
 
 void removeNode(node* &list, int position){
+    node* tmp;
     if(position == 0){
+        tmp = list;
         list = list->next;
+        delete tmp;
     }
     else{
         node *prev = getNodeAt(list, position-1);
+        tmp = prev->next;
         prev->next = prev->next->next;
+        delete tmp;
+    }
+}
+
+void deinit(node* list){
+    node* tmp;
+    while(list!=NULL){
+        tmp = list;
+        list = list->next;
+        delete tmp;
+    }
+}
+
+void deinitRecursive(node* list){
+    if(list!=NULL){
+        deinitRecursive(list->next);
+        delete list;
     }
 }
