@@ -6,6 +6,8 @@ bool palindromo(int);
 int primaCifra(int);
 int tagliaCifre(int);
 
+// Vedi palindromo ricorsivo 2, questo fa schifo
+
 int main(){
 	cout << palindromo(121) << endl;
 	return 0;
