@@ -15,6 +15,7 @@ void addRecursive(node*, int);
 node* getNodeAt(node*, int);
 node* getRecursive(node*, int);
 void removeNode(node*&, int);
+void scambia(node*&, int, int);
 void deinit(node*);
 void deinitRecursive(node*);
 
@@ -24,6 +25,8 @@ int main(){
     addElement(n, 51);
     addElement(n, 27);
     addElement(n, 82);
+    addElement(n, 62);
+    addElement(n, 73);
     printLista(n);
     addElement(nr, 51);
     addElement(nr, 27);
@@ -33,6 +36,7 @@ int main(){
     cout << getRecursive(nr, 2)->value << endl;
     removeNode(n, 3);
     removeNode(nr, 0);
+    scambia(n, 0, 3);
     printLista(n);
     printRecursive(nr);
 
@@ -104,6 +108,34 @@ void removeNode(node* &list, int position){
         prev->next = prev->next->next;
         delete tmp;
     }
+}
+
+void scambia(node*&list, int pos1, int pos2){ 
+    node *prev1=NULL, *prev2=NULL, *list1=list, *list2=list;
+    while(list1!=NULL && pos1>0){
+        prev1 = list1;
+        list1 = list1->next;
+        pos1--;
+    }
+    while(list2!=NULL && pos2>0){
+        prev2 = list2;
+        list2 = list2->next;
+        pos2--;
+    }
+
+    if(prev1 != NULL)
+        prev1->next = list2;
+    else
+        list = list2;
+
+    if(prev2 != NULL)
+        prev2->next = list1;
+    else
+        list = list1;
+ 
+    node* tmp = list2->next;
+    list2->next = list1->next;
+    list1->next = tmp;
 }
 
 void deinit(node* list){
