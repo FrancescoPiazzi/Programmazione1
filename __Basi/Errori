@@ -15,3 +15,5 @@ Sicuro di star esegueendo la stessa cosa che stai compilando?
 
 alcune mie funzioni hanno nomi molto simili a funzioni di libreria
 es. strcmp vs strCmp, toupper vs toUpper...
+
+Non puoi fare il cin dentro un char*, solo in un array
